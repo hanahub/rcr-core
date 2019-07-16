@@ -75,35 +75,6 @@ class MY_Shopify extends CI_Controller {
 
         print_r($result);
 
-
-        // foreach ($pids as $pid) {
-
-        //     $product = $sc->call("GET", "/admin/products/{$pid}.json?fields=tags,variants", array());
-
-        //     $price = $product['variants'][0]['price'];
-        //     $tags = explode(',', str_replace(' ', '', $product['tags']));
-            
-        //     foreach ($tags as $tag) {
-        //         if (in_array($tag, $tag_names)) {
-        //             $key = array_search($tag, $tag_names);
-        //             $pixel = $tag_pixels[$key];
-
-        //             $log = array("product_id" => $pid, "tag" => $tag, "pixel" => $pixel);
-        //             $this->Shopify->log($log);
-
-        //             if ($pixel != "") {
-        //                 $track .= $this->init_with_customer_info($shop, $pixel, $tag, $customer_id);
-        //                 $track .= "fbq('track', 'Purchase', {
-        //                         content_name: 'Purchase: {$tag}',
-        //                         content_ids: [{$pid}],
-        //                         content_type: 'product',                                    
-        //                         value: {$price},
-        //                         currency: 'USD'
-        //                     })";
-        //             }
-        //         }
-        //     }
-        // }
       } catch (Exception $e) {
         print_r($e);
       }
