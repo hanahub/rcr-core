@@ -9,7 +9,13 @@ class MY_Shopify extends CI_Controller {
     }
 
     function discount($shop) {
-      $output = "console.log('testtest');";
+      $output = <<<EOF
+            console.log('testtest' + Math.random());
+            jQuery.getJSON('/cart.js', function(cart) {
+              // alert('There are now ' + cart.item_count + ' items in the cart.');
+              console.log(cart);
+            });
+EOF;
       echo $output;
     }
 
@@ -72,8 +78,6 @@ class MY_Shopify extends CI_Controller {
 
         // $19.00 off 3 products • Minimum purchase of $78.00 • Applies once per order
         // $38.00 off 3 products • Minimum purchase of $117.00 • Applies once per order
-
-
 
         //  28687545925709, 28687509094477, 28687514009677
         $result = $sc->call("POST", "/admin/api/2019-07/price_rules.json", array(
@@ -195,8 +199,6 @@ class MY_Shopify extends CI_Controller {
                  script.setAttribute('src', url);
                  document.body.appendChild(script); 
             }
-
-
 EOF;
     
         //$output = trim(preg_replace('/\s+/', ' ', $output));        

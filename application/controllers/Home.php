@@ -14,7 +14,9 @@ class Home extends MY_Controller {
         global $sc;
 
         try {
-            $script = $sc->call('POST', '/admin/script_tags.json', array('script_tag' => array('event' => 'onload', 'src'=> base_url() . "discount/{$_SESSION[APP_ID]['CURRENT_STORE']['url']}" )));
+            // $script = $sc->call('POST', '/admin/script_tags.json', array('script_tag' => array('event' => 'onload', 'src'=> base_url() . "discount/{$_SESSION[APP_ID]['CURRENT_STORE']['url']}" )));
+            // $script = $sc->call('GET', '/admin/script_tags.json', array());
+            $script = $sc->call('DELETE', '/admin/api/2019-07/script_tags/55797022797.json', array());
         } catch (Exception $e) {
             print_r($e);
         }
