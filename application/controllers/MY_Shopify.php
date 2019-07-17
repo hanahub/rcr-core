@@ -13,11 +13,11 @@ class MY_Shopify extends CI_Controller {
       echo $output;
     }
 
-    function get_offer($shop = '') {
+    function price_rules($shop = '') {
       try {
         $sc = new ShopifyClient(STORE_URL, SHOPIFY_APP_PASSWORD, SHOPIFY_APP_APIKEY, SHOPIFY_APP_SECRET);            
 
-        $result = $sc->call("GET", "/admin/api/2019-04/price_rules.json", array());
+        $result = $sc->call("GET", "/admin/api/2019-07/price_rules.json", array());
 
         print_r($result);
 
@@ -26,11 +26,11 @@ class MY_Shopify extends CI_Controller {
       }
     }
 
-    function delete_offer($shop = '') {
+    function delete_price_rule($id) {
       try {
         $sc = new ShopifyClient(STORE_URL, SHOPIFY_APP_PASSWORD, SHOPIFY_APP_APIKEY, SHOPIFY_APP_SECRET);            
 
-        $result = $sc->call("DELETE", "/admin/api/2019-04/price_rules/391436042317.json", array());
+        $result = $sc->call("DELETE", "/admin/api/2019-07/price_rules/{$id}.json", array());
 
         print_r($result);
 
@@ -39,37 +39,23 @@ class MY_Shopify extends CI_Controller {
       }
     }
 
-    function offer($shop = '') {
+    function create_price_rules() {
       try {
         $sc = new ShopifyClient(STORE_URL, SHOPIFY_APP_PASSWORD, SHOPIFY_APP_APIKEY, SHOPIFY_APP_SECRET);            
 
-        // $result = $sc->call("POST", "/admin/api/2019-04/price_rules.json", array(
-        //   "price_rule" => array(
-        //     "title" => "SUMMERSALE10OFF",
-        //     "target_type" => "line_item",
-        //     "target_selection" => "all",
-        //     "allocation_method" => "across",
-        //     "value_type" => "fixed_amount",
-        //     "value" => "-10.0",
-        //     "customer_selection" => "all",
-        //     "starts_at" => "2019-07-15T17:59:10Z"
-        //   )
-        // ));
-
-        $result = $sc->call("POST", "/admin/api/2019-04/price_rules.json", array(
+        $result = $sc->call("POST", "/admin/api/2019-07/price_rules.json", array(
           "price_rule" => array(
-            "title" => "15OFFCOLLECTION",
+            "title" => "222SUMMERSALE10OFF",
             "target_type" => "line_item",
             "target_selection" => "all",
             "allocation_method" => "across",
-            "value_type" => "percentage",
-            "value" => "-20.0",
-            "usage_limit" => 20,
+            "value_type" => "fixed_amount",
+            "value" => "-10.0",
             "customer_selection" => "all",
-            "prerequisite_subtotal_range" => array(
-              "greater_than_or_equal_to" => "50.0"
-            ),
-            "starts_at" => "2019-07-16T10:45:42-04:00"
+            // "prerequisite_subtotal_range" => array(
+            //   "greater_than_or_equal_to" => "50.0"
+            // ),
+            "starts_at" => "2019-07-15T17:59:10Z"
           )
         ));
 
@@ -79,6 +65,108 @@ class MY_Shopify extends CI_Controller {
         print_r($e);
       }
     }
+
+    function create_price_rules2() {
+      try {
+        $sc = new ShopifyClient(STORE_URL, SHOPIFY_APP_PASSWORD, SHOPIFY_APP_APIKEY, SHOPIFY_APP_SECRET);            
+
+        // $19.00 off 3 products • Minimum purchase of $78.00 • Applies once per order
+        // $38.00 off 3 products • Minimum purchase of $117.00 • Applies once per order
+
+
+
+        //  28687545925709, 28687509094477, 28687514009677
+        $result = $sc->call("POST", "/admin/api/2019-07/price_rules.json", array(
+          "price_rule" => array(
+            "title" => "RCRMAINOFF",
+            "target_type" => "line_item",
+            "target_selection" => "entitled",
+            "allocation_method" => "across",
+            "value_type" => "fixed_amount",
+            "value" => "-19.0",
+            "customer_selection" => "all",
+            "prerequisite_subtotal_range" => array(
+              "greater_than_or_equal_to" => "78.0"
+            ),
+            "entitled_variant_ids" => array(
+              "28687545925709",
+              "28687509094477",
+              "28687514009677"
+            ),
+            "starts_at" => "2019-07-15T17:59:10Z"
+          )
+        ));
+
+        print_r($result);
+
+      } catch (Exception $e) {
+        print_r($e);
+      }
+    }
+
+    function update_price_rule($rule_id) {
+      try {
+        $sc = new ShopifyClient(STORE_URL, SHOPIFY_APP_PASSWORD, SHOPIFY_APP_APIKEY, SHOPIFY_APP_SECRET);            
+
+        $result = $sc->call("PUT", "/admin/api/2019-07/price_rules/{$rule_id}.json", array(
+          "price_rule" => array(
+            "title" => "222SUMMERSALE10OFF",
+            "target_type" => "line_item",
+            "target_selection" => "entitled",
+            "allocation_method" => "across",
+            "value_type" => "fixed_amount",
+            "value" => "-10.0",
+            "customer_selection" => "all",
+            "prerequisite_subtotal_range" => array(
+              "greater_than_or_equal_to" => "250.0"
+            ),
+            "starts_at" => "2019-07-15T17:59:10Z"
+          )
+        ));
+
+        print_r($result);
+
+      } catch (Exception $e) {
+        print_r($e);
+      }
+    }
+
+    function create_discount($rule_id, $code) {
+      try {
+        $sc = new ShopifyClient(STORE_URL, SHOPIFY_APP_PASSWORD, SHOPIFY_APP_APIKEY, SHOPIFY_APP_SECRET);            
+
+        $result = $sc->call("POST", "/admin/api/2019-07/price_rules/{$rule_id}/discount_codes.json", array(
+          "discount_code" => array(
+            "code" => $code            
+          )
+        ));
+
+        print_r($result);
+
+      } catch (Exception $e) {
+        print_r($e);
+      }
+    }
+
+    function discounts($rule_id, $code) {
+      try {
+        $sc = new ShopifyClient(STORE_URL, SHOPIFY_APP_PASSWORD, SHOPIFY_APP_APIKEY, SHOPIFY_APP_SECRET);            
+
+        $result = $sc->call("POST", "/admin/api/2019-07/price_rules/{$rule_id}/discount_codes.json", array(
+          "discount_code" => array(
+            "code" => $code            
+          )
+        ));
+
+        print_r($result);
+
+      } catch (Exception $e) {
+        print_r($e);
+      }
+    }
+
+
+
 
     function related_functions($print = 1) {
         $output = <<<EOF
