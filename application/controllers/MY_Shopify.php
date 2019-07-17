@@ -11,9 +11,14 @@ class MY_Shopify extends CI_Controller {
     function discount($shop) {
       $output = <<<EOF
             console.log('testtest' + Math.random());
-            jQuery.getJSON('/cart.js', function(cart) {
+            $.getJSON('/cart.js', function(cart) {
               // alert('There are now ' + cart.item_count + ' items in the cart.');
               console.log(cart);
+            });
+
+            $(":submit[name=\"checkout\"]").click(function(e) {
+              console.log(e);
+              // <input class="js-form-discount" type="hidden" name="discount" value="RESELLERDISCOUNTCODE" >
             });
 EOF;
       echo $output;
