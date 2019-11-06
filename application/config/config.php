@@ -27,10 +27,10 @@ $protocol = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ) ? 'https' 
 $config['base_url'] = $protocol . '://' . $_SERVER['SERVER_NAME'] . '/rcr-core/';
 
 defined('APP_ID') OR define('APP_ID', "WKDINVMVNSDV");
-defined('STORE_URL') OR define('STORE_URL', "test-rcr.myshopify.com");
-defined('SHOPIFY_APP_PASSWORD') OR define('SHOPIFY_APP_PASSWORD', "eaab7ea166bed3f225a79d0c92668a02");
-defined('SHOPIFY_APP_APIKEY') OR define('SHOPIFY_APP_APIKEY', "320c619f38e04b3adf4a838edf116f7c");
-defined('SHOPIFY_APP_SECRET') OR define('SHOPIFY_APP_SECRET', "5ce3b550ffbcd4953e7efd10dfdbe2ac");
+defined('STORE_URL') OR define('STORE_URL', "shopredcarpetrocks.myshopify.com");
+defined('SHOPIFY_APP_PASSWORD') OR define('SHOPIFY_APP_PASSWORD', "0308182040c2b8d0473c4ceeed3ffa1f");
+defined('SHOPIFY_APP_APIKEY') OR define('SHOPIFY_APP_APIKEY', "3c2e8b927cb97afc75688adf7f52bd69");
+defined('SHOPIFY_APP_SECRET') OR define('SHOPIFY_APP_SECRET', "ba03b62ce6fb787a13afbb47fe786d82");
 
 /*
 |--------------------------------------------------------------------------

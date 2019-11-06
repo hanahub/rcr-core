@@ -1,5 +1,24 @@
 <?php
 
+function getAllProducts($collection_id) {
+    global $sc;
+
+    $result = array();    
+    try {            
+        $count = $sc->call("GET", "/admin/products/count.json?collection_id={$collection_id}&tags=Bachelorette", array());                        
+        $total = ceil($count / 250) + 1;
+        for ($i = 1; $i <= $total; $i++) {                
+            $products = $sc->call("GET", "/admin/products.json?fields=id,title,tags,variants&limit=250&page={$i}&collection_id={$collection_id}&tags=Bachelorette", array());
+            $result = array_merge($result, $products);                
+        }
+        
+    } catch (Exception $e) {
+        handle_exception($e);
+    }
+    return $result;
+}
+
+
 function getShopifyProducts($since_id = '', $limit = 10) {
     $sc = $_SESSION['SC'];
     $param = array(
@@ -44,6 +63,8 @@ Click The Link Above To Order!";
     
     return $products;
 }
+
+
 
 
 ?>
